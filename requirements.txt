@@ -1,2 +1,4 @@
 bottle==0.12.7
 wsgiref==0.1.2
+DBUtils==1.1 
+PyGreSQL==4.1.1 
