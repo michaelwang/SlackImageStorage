@@ -2,6 +2,8 @@ import os
 from bottle import route,run,template,view,request
 import pg
 
+fileHandler = FileHandler()
+
 @route('/hello/<name>')
 def index(name):
     return template('<b>Hello {{name}}</b>!',name=name)
@@ -12,18 +14,17 @@ def upload():
     
 @route('/upload', method='POST')
 def do_upload():
-    category   = request.forms.get('category')
+#    category   = request.forms.get('category')
     upload     = request.files.get('upload')
     url = request.forms.get('url')
     content_type =  upload.content_type
     name, ext = os.path.splitext(upload.filename)
 #    if ext not in ('.txt','.png','.jpg','.jpeg'):
 #       return 'File extension not allowed.'
-    save_path = get_save_path_for_category(category)
+    save_path = '/tmp'
     upload.filename = str(abs(hash(name)))+ ext
-    fileID = save_to_db(url,content_type,name,upload.filename)
-    update_file_position(fileID,determineMachine(fileID))
     upload.save(save_path,overwrite=True) # appends upload.filename automatically
+    fileHandler.save('/tmp/'+upload.filename + ext,url)
     return upload.filename
 
 def get_save_path_for_category(category):

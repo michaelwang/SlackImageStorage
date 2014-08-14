@@ -10,12 +10,27 @@ class TestHander(unittest.TestCase):
         self.dbHandler = DBHandler()
         self.fileHandler = FileHandler(5)
 
-    def testFileHanderSave(self):
-        path = '/home/michael/license.txt'
+    def testFileHanderSave(self,url = 'aa'):
+        path = '/tmp/license.txt'
         import os
         if not os.path.isfile(path):
            os.mknod(path)
-        self.fileHandler.save(path,'aa')
+        fileId = self.fileHandler.save(path,url)
+        return fileId
+
+    def testGetFiletypeByURL(self):
+        url = 'http://www.abc.com'
+        self.testFileHanderSave(url)
+        print 'file type is :' + self.fileHandler.getTypeByUrl(url)
+        
+    def testGetFileByID(self):
+        fileId = self.testFileHanderSave()
+        opendFile = self.fileHandler.getFileByID(fileId)
+
+         
+    def testGetFiletypeByID(self):
+        fileId = self.testFileHanderSave()
+        print self.fileHandler.getTypeByID(fileId)
 
     def testGetTotalFileCount(self):
         num = self.fileHandler.getTotalFileCount()
