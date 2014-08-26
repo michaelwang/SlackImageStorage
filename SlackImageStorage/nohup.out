@@ -1,0 +1,100 @@
+Bottle v0.12.7 server starting up (using WSGIRefServer())...
+Listening on http://localhost:8080/
+Hit Ctrl-C to quit.
+
+Bottle v0.12.7 server starting up (using WSGIRefServer())...
+Listening on http://localhost:8080/
+Hit Ctrl-C to quit.
+
+Bottle v0.12.7 server starting up (using WSGIRefServer())...
+Listening on http://localhost:8080/
+Hit Ctrl-C to quit.
+
+Traceback (most recent call last):
+  File "/home/michael/workspace/projects/SlackImageStorage/slackImageVirtualEvn/local/lib/python2.7/site-packages/bottle.py", line 862, in _handle
+    return route.call(**args)
+  File "/home/michael/workspace/projects/SlackImageStorage/slackImageVirtualEvn/local/lib/python2.7/site-packages/bottle.py", line 1729, in wrapper
+    rv = callback(*a, **ka)
+TypeError: getFileByName() takes no arguments (1 given)
+127.0.0.1 - - [27/Aug/2014 07:24:30] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 500 1447
+127.0.0.1 - - [27/Aug/2014 07:24:30] "GET /favicon.ico HTTP/1.1" 404 742
+127.0.0.1 - - [27/Aug/2014 07:24:30] "GET /favicon.ico HTTP/1.1" 404 742
+Bottle v0.12.7 server starting up (using WSGIRefServer())...
+Listening on http://localhost:8080/
+Hit Ctrl-C to quit.
+
+127.0.0.1 - - [27/Aug/2014 07:25:07] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 200 0
+127.0.0.1 - - [27/Aug/2014 07:26:26] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 200 13
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/wsgiref/handlers.py", line 86, in run
+    self.finish_response()
+  File "/usr/lib/python2.7/wsgiref/handlers.py", line 128, in finish_response
+    self.write(data)
+  File "/usr/lib/python2.7/wsgiref/handlers.py", line 212, in write
+    self.send_headers()
+  File "/usr/lib/python2.7/wsgiref/handlers.py", line 270, in send_headers
+    self.send_preamble()
+  File "/usr/lib/python2.7/wsgiref/handlers.py", line 194, in send_preamble
+    'Date: %s\r\n' % format_date_time(time.time())
+  File "/usr/lib/python2.7/socket.py", line 324, in write
+    self.flush()
+  File "/usr/lib/python2.7/socket.py", line 303, in flush
+    self._sock.sendall(view[write_offset:write_offset+buffer_size])
+error: [Errno 32] Broken pipe
+127.0.0.1 - - [27/Aug/2014 07:26:26] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 500 59
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/SocketServer.py", line 295, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 321, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 334, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 651, in __init__
+    self.finish()
+  File "/usr/lib/python2.7/SocketServer.py", line 710, in finish
+    self.wfile.close()
+  File "/usr/lib/python2.7/socket.py", line 279, in close
+    self.flush()
+  File "/usr/lib/python2.7/socket.py", line 303, in flush
+    self._sock.sendall(view[write_offset:write_offset+buffer_size])
+error: [Errno 32] Broken pipe
+127.0.0.1 - - [27/Aug/2014 07:26:26] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 200 13
+127.0.0.1 - - [27/Aug/2014 07:26:30] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 200 13
+127.0.0.1 - - [27/Aug/2014 07:26:31] "GET /getFileByName/adf44b56-2984-11e4-ade8-28e347f38d29.txt HTTP/1.1" 200 13
+127.0.0.1 - - [27/Aug/2014 07:28:46] "GET /upload HTTP/1.1" 200 271
+Traceback (most recent call last):
+  File "/home/michael/workspace/projects/SlackImageStorage/slackImageVirtualEvn/local/lib/python2.7/site-packages/bottle.py", line 862, in _handle
+    return route.call(**args)
+  File "/home/michael/workspace/projects/SlackImageStorage/slackImageVirtualEvn/local/lib/python2.7/site-packages/bottle.py", line 1729, in wrapper
+    rv = callback(*a, **ka)
+  File "fileProcessBottle.py", line 25, in do_upload
+    fileId,physicalName = fileHandler.save('/tmp/'+upload.filename + ext,url)
+  File "/home/michael/workspace/projects/SlackImageStorage/sis/SlackImageStorage/SlackImageStorage/fileHandler.py", line 39, in save
+    shutil.move(path,savedDiskName)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 82, in copyfile
+    with open(src, 'rb') as fsrc:
+IOError: [Errno 2] No such file or directory: u'/tmp/77373109198797164.jpg.jpg'
+127.0.0.1 - - [27/Aug/2014 07:40:28] "POST /upload HTTP/1.1" 500 2041
+sql: select physical_name,saved_position from files where physical_name ='adf44b56-2984-11e4-ade8-28e347f38d29.txt'
+file path is :/home/michael/upload/4/adf44b56-2984-11e4-ade8-28e347f38d29.txt
+sql: select physical_name,saved_position from files where physical_name ='adf44b56-2984-11e4-ade8-28e347f38d29.txt'
+file path is :/home/michael/upload/4/adf44b56-2984-11e4-ade8-28e347f38d29.txt
+----------------------------------------
+Exception happened during processing of request from ('127.0.0.1', 56967)
+----------------------------------------
+sql: select physical_name,saved_position from files where physical_name ='adf44b56-2984-11e4-ade8-28e347f38d29.txt'
+file path is :/home/michael/upload/4/adf44b56-2984-11e4-ade8-28e347f38d29.txt
+sql: select physical_name,saved_position from files where physical_name ='adf44b56-2984-11e4-ade8-28e347f38d29.txt'
+file path is :/home/michael/upload/4/adf44b56-2984-11e4-ade8-28e347f38d29.txt
+sql: select physical_name,saved_position from files where physical_name ='adf44b56-2984-11e4-ade8-28e347f38d29.txt'
+file path is :/home/michael/upload/4/adf44b56-2984-11e4-ade8-28e347f38d29.txt
+Bottle v0.12.7 server starting up (using WSGIRefServer())...
+Listening on http://localhost:8080/
+Hit Ctrl-C to quit.
+
+127.0.0.1 - - [27/Aug/2014 07:51:13] "POST /upload HTTP/1.1" 200 40
+127.0.0.1 - - [27/Aug/2014 07:51:30] "GET /getFileByName/dccbf5a0-2d7b-11e4-89a2-28e347f38d29.jpg HTTP/1.1" 200 267386
