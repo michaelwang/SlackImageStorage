@@ -18,10 +18,10 @@ class TestHander(unittest.TestCase):
         fileId,physicalName = self.fileHandler.save(path,url)
         return fileId,physicalName
     
-    def testGetFileByPhysicalName(self):
+    def testGetFilePathByPhysicalName(self):
         fileId,physicalName = self.testFileHanderSave()
-        fileObj = self.fileHandler.getFileByDiskName(physicalName)
-        
+        path = self.fileHandler.getFilePathByDiskName(physicalName)
+        print 'path :'+ path
     
     def testGetFiletypeByURL(self):
         url = 'http://www.abc.com'

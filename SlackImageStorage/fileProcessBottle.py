@@ -1,8 +1,7 @@
 import os
-from bottle import route,run,template,view,request
+from bottle import route,run,template,view,request,static_file
 import pg
 from fileHandler import FileHandler
-
 
 @route('/hello/<name>')
 def index(name):
@@ -16,7 +15,7 @@ def upload():
 def do_upload():
     upload     = request.files.get('upload')
     url = request.forms.get('url')
-    content_type =  upload.content_type
+    content_type =  upload.content_type 
     name, ext = os.path.splitext(upload.filename)
     save_path = '/tmp'
     upload.filename = str(abs(hash(name)))+ ext
@@ -28,7 +27,8 @@ def do_upload():
 @route('/getFileByName/<filename>',method='GET')
 def getFileByName(filename):
     fileHandler = FileHandler(5)
-    fileObj = fileHandler.getFileByDiskName(filename)    
-    return fileObj
-    
-run(host='localhost',port=8080,debug=True,reloader=True)
+    path = fileHandler.getFilePathByDiskName(filename)    
+    return static_file(filename,root=path)
+
+if __name__ == '__main__':
+   run(host='localhost',port=8080,debug=True,reloader=True)

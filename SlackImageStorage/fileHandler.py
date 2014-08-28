@@ -34,11 +34,11 @@ class FileHandler(object):
     
     def save(self,path,url):
         fileName,ext,nextIndex,savedPath = self.parseFileMeta(path)
-        diskName = str(uuid.uuid1()) + ext
-        savedDiskName = savedPath + diskName
-        shutil.move(path,savedDiskName)
-        fileId = self.save_to_db(url,ext,fileName,diskName,nextIndex)
-        return fileId,diskName
+        fileDiskName = str(uuid.uuid1()) + ext
+        fileSavedPath = savedPath + fileDiskName
+        shutil.move(path,fileSavedPath)
+        fileId = self.save_to_db(url,ext,fileName,fileDiskName,nextIndex)
+        return fileId,fileDiskName
     
     def getTypeByUrl(self,url):
         sql = ''' select file_type from files where from_url = '{url}' '''.format (
@@ -66,18 +66,16 @@ class FileHandler(object):
         print 'file path is :' + path
         return open(path,'r')
 
-    def getFileByDiskName(self,physicalName):
+    def getFilePathByDiskName(self,physicalName):
         sql_select = """ select physical_name,saved_position from files where physical_name ='{physical_name}'""".format(
                  physical_name = physicalName
             )
-        print 'sql:' + sql_select
         rows = self.db.excute(sql_select)
         physical_name = rows.getresult()[0][0]
         saved_position = rows.getresult()[0][1]
-        folder = self.config.get('Section Folder','folder' + str(saved_position))
-        path = folder + physical_name
-        print 'file path is :' + path
-        return open(path,'r')        
+        path = self.config.get('Section Folder','folder' + str(saved_position))
+        return path
+        
     
     def save_to_db(self,from_url,file_type,logical_name,physical_name,saved_position):
         sql_insert ="""INSERT INTO files(logical_name,physical_name,file_type,from_url,saved_position) values('{logical_name}','{physical_name}','{file_type}','{from_url}','{saved_position}')""".format(
