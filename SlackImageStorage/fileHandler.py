@@ -1,4 +1,5 @@
 from dbHandler import DBHandler
+from encryptedTools import CryptoTool
 import os
 import time
 import ConfigParser
@@ -11,6 +12,7 @@ class FileHandler(object):
         self.count = 0
         self.config = ConfigParser.ConfigParser()
         self.config.read('config.properties')
+        self.cryptTool = CryptoTool()
         
     def nextMachine(self):
         self.count = self.getTotalFileCount()
@@ -37,7 +39,8 @@ class FileHandler(object):
         fileDiskName = str(uuid.uuid1()) + ext
         fileSavedPath = savedPath + fileDiskName
         shutil.move(path,fileSavedPath)
-        fileId = self.save_to_db(url,ext,fileName,fileDiskName,nextIndex)
+        cryptUrl = self.cryptTool.encryptString(url)
+        fileId = self.save_to_db(cryptUrl,ext,fileName,fileDiskName,nextIndex)
         return fileId,fileDiskName
     
     def getTypeByUrl(self,url):
